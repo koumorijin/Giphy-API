@@ -7,10 +7,11 @@ $(document).ready(function(){
 
 	//CREATE THE INITIAL BUTTON ARRAY DISPLAY
 	function createButtonDisplay(){
+		//$(".button-container").empty();
 		for(var index = 0; index < giphyQueries.length; index++){
 			let originalButtons = $("<button>");
 			originalButtons.addClass("query original-buttons");
-			originalButtons.attr("data-query",giphyQueries[index]);
+			originalButtons.attr("data-query", giphyQueries[index]);
 			originalButtons.text(giphyQueries[index]);
 
 			$(".button-container").append(originalButtons);
@@ -20,7 +21,7 @@ $(document).ready(function(){
 	createButtonDisplay();
     
 	//GIHPY BUTTON CLICK FUNCTION
-    $(".original-buttons").on("click", function() {
+    $(".original-buttons").on("click", function(event) {
       	var query = $(this).attr("data-query");
       	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=dc6zaTOxFJmzC&limit=10";
       	console.log(queryURL);
@@ -47,16 +48,19 @@ $(document).ready(function(){
       	let query = $("#newQueryInput").val().trim();
       	let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=dc6zaTOxFJmzC&limit=10";
       	let newButton = $("<button>");
-      	giphyQueries.push(query);
+      	giphyQueries.push(userInput);
+      	console.log(giphyQueries);
       	//console.log(queryURL);
       	//console.log(query);
       	newButton.addClass("query original-buttons");
 		newButton.attr("data-query", query);
 		newButton.text(userInput);
 
+		//createButtonDisplay();
 		$(".button-container").append(newButton);
     	$(".giphy-container").empty("");
-       	$("#newQueryInput").val(""); 
+     	$("#newQueryInput").val("");
+
     		$.ajax({
         		url: queryURL,
           		method: "GET"
