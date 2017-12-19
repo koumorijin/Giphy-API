@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	let giphyQueries = ["30 Rock","face palm", "Chuck Norris","nyan cat","turnt"];
-	let newQuery = $("")
+	let newQuery = $("");
 	//console.log(giphyQueries);
 	$("#newQueryInput").focus();
 
@@ -14,14 +14,15 @@ $(document).ready(function(){
 			originalButtons.attr("data-query", giphyQueries[index]);
 			originalButtons.text(giphyQueries[index]);
 
-			$(".button-container").append(originalButtons);
+			$("#button-container").append(originalButtons);
 			console.log(originalButtons);
 		}
 	}
 	createButtonDisplay();
     
 	//GIHPY BUTTON CLICK FUNCTION
-    $(".original-buttons").on("click", function(event) {
+	$(document).on("click", "button.original-buttons", function(){
+    //$(".original-buttons").on("click", function(event) {
       	var query = $(this).attr("data-query");
       	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=dc6zaTOxFJmzC&limit=10";
       	console.log(queryURL);
@@ -35,7 +36,6 @@ $(document).ready(function(){
         	for (var giphy = 0; giphy < results.length; giphy++) {
 	            let giphyImage = $("<img>");
 	            giphyImage.attr("src", results[giphy].images.fixed_height.url);
-	            //giphyImage.addClass("img-responsive")
 	            $(".giphy-container").prepend(giphyImage);
           	}
         });
@@ -57,7 +57,7 @@ $(document).ready(function(){
 		newButton.text(userInput);
 
 		//createButtonDisplay();
-		$(".button-container").append(newButton);
+		$("#button-container").append(newButton);
     	$(".giphy-container").empty("");
      	$("#newQueryInput").val("");
 
